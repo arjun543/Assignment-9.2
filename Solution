@@ -1,0 +1,26 @@
+1.Find the number of students who scored less than 5(50%).
+sol : load : A = LOAD 'students_list.txt' using PigStorage(',') as (name:chararray,col:chararray,dob:chararray,stream:chararray,grade:float,state:chararray,city:chararray);
+
+
+B = filter A by grade < 5.0;
+grpB = group B all ;
+result = foreach grpB generate COUNT(B.name);
+
+
+2.List the name of students who are from Alaska.
+
+load : A = LOAD 'students_list.txt' using PigStorage(',') as (name:chararray,col:chararray,dob:chararray,stream:chararray,grade:float,state:chararray,city:chararray);
+
+B= filter A by state eq 'alaska' ;
+result = foreach B generate B.name;
+
+3.How many government collages are there in Alabama?
+B = filter A by state eq 'alabama' and col eq 'government' ;
+grpB = group B all ;
+result = foreach grpB generate GROUP(B.name);
+
+4.
+List the name of students who are from Oregon and persuing BE.
+
+B= filter A by state eq 'Oregon'  and stream eq 'BE';
+result = foreach B generate B.name;
